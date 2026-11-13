@@ -27,8 +27,12 @@ async function request(url, { method = 'GET', body } = {}) {
 }
 
 export const api = {
+    getProfile: () => request('/api/profile'),
+    getEducation: () => request('/api/education'),
+    getExperience: () => request('/api/experience'),
     getProjects: () => request('/api/projects'),
     getSkills: () => request('/api/skills'),
+    getCertifications: () => request('/api/certifications'),
     sendMessage: (message) => request('/api/messages', { method: 'POST', body: message }),
     recordVisit: () => request('/api/visits', { method: 'POST' })
 };

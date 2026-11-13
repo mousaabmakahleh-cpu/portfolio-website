@@ -9,6 +9,11 @@
     padding: 0;
 }
 
+/* `hidden` must always win over component display rules (e.g. .btn { display: inline-flex }) */
+[hidden] {
+    display: none !important;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-h) + 1rem);

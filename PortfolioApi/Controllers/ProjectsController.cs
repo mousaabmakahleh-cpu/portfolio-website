@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioApi.Data;
 using Microsoft.EntityFrameworkCore;
-using PortfolioApi.Models;
+using PortfolioApi.Data;
 using PortfolioApi.DTOs;
-using Microsoft.AspNetCore.Authorization;
+using PortfolioApi.DTOs.Validation;
+using PortfolioApi.Models;
 
 namespace PortfolioApi.Controllers
 {
@@ -13,76 +13,54 @@ namespace PortfolioApi.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly AppDbContext _context;
+
         public ProjectsController(AppDbContext context)
         {
             _context = context;
         }
 
+        private static IQueryable<Project> Ordered(IQueryable<Project> query) =>
+            query.OrderBy(p => p.SortOrder).ThenByDescending(p => p.CreatedAt);
+
         [Authorize]
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllForAdmin()
-        {
-            var projects = await _context.Project
-                .OrderByDescending(p => p.CreatedAt)
-                .ToListAsync();
-
-            return Ok(projects);
-        }
+        public async Task<IActionResult> GetAllForAdmin() =>
+            Ok(await Ordered(_context.Project.AsNoTracking()).ToListAsync());
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var Project = await _context.Project
-                .Where(p => p.IsActive)
-                .ToListAsync();
+        public async Task<IActionResult> GetAll() =>
+            Ok(await Ordered(_context.Project.AsNoTracking().Where(p => p.IsActive)).ToListAsync());
 
-            return Ok(Project);
-        }
-
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var project = await _context.Project.FindAsync(id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-            return Ok(project);
+            var project = await _context.Project.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var isAdmin = User.Identity?.IsAuthenticated == true;
+
+            return project is null || (!project.IsActive && !isAdmin) ? NotFound() : Ok(project);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProjectDto dto)
+        public async Task<IActionResult> Create(CreateProjectDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var project = new Project
-            {
-                Name = dto.Name,
-                Description = dto.Description,
-                ImageUrl = dto.ImageUrl,
-                ProjectUrl = dto.ProjectUrl,
-            };
+            var project = new Project();
+            Map(dto, project);
+
             _context.Project.Add(project);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, UpdateProjectDto dto)
         {
             var project = await _context.Project.FindAsync(id);
-
             if (project == null)
                 return NotFound();
 
-            project.Name = dto.Name;
-            project.Description = dto.Description;
-            project.ImageUrl = dto.ImageUrl;
-            project.ProjectUrl = dto.ProjectUrl;
+            Map(dto, project);
             project.IsActive = dto.IsActive;
             project.UpdatedAt = DateTime.UtcNow;
 
@@ -91,19 +69,30 @@ namespace PortfolioApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var project = await _context.Project.FindAsync(id);
-
             if (project == null)
                 return NotFound();
 
             _context.Project.Remove(project);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
+        private static void Map(CreateProjectDto dto, Project project)
+        {
+            project.Name = dto.Name.Trim();
+            project.Description = dto.Description.Trim();
+            project.ImageUrl = ListCleaner.NullIfBlank(dto.ImageUrl);
+            project.ProjectUrl = ListCleaner.NullIfBlank(dto.ProjectUrl);
+            project.FrontendRepoUrl = ListCleaner.NullIfBlank(dto.FrontendRepoUrl);
+            project.BackendRepoUrl = ListCleaner.NullIfBlank(dto.BackendRepoUrl);
+            project.Status = dto.Status;
+            project.Features = ListCleaner.Clean(dto.Features);
+            project.Technologies = ListCleaner.Clean(dto.Technologies);
+            project.SortOrder = dto.SortOrder;
+        }
     }
 }

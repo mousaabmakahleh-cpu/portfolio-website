@@ -5,14 +5,20 @@ A personal portfolio website with a secure admin dashboard, built with ASP.NET C
 ## Features
 
 **Public website**
-- Projects and skills loaded dynamically from the API
+- About me with education (university, GPA, key subjects)
+- Experience & courses timeline with dates and skills used
+- Skills grouped by category (Frontend, Backend, Database, UI/UX, Tools) with filters
+- Projects with screenshot, status, features, technologies and frontend/backend repo links
+- Certifications with full-size certificate viewer
+- Downloadable CV and "Connect with me" links (GitHub, LinkedIn, Email)
 - Contact form (messages are saved in the database)
-- Light / dark theme toggle
+- Light / dark theme toggle, scroll animations, responsive layout
 - Visit counter
 
 **Admin dashboard** (`/admin/`)
 - Secure login with JWT authentication
-- Add, edit, hide and delete projects and skills
+- Manage profile & CV, education, experience, skills, projects and certifications
+- Upload images and PDFs (stored in PostgreSQL, validated by file signature)
 - Read and manage contact messages
 - Visit statistics (total, today, last 7 days)
 

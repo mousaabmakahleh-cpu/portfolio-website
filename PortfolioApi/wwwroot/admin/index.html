@@ -4,140 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="base.css">
+    <title>Admin — Portfolio</title>
+    <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+    <script src="../js/theme-init.js"></script>
+    <link rel="stylesheet" href="../css/tokens.css">
     <link rel="stylesheet" href="admin.css">
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
-
-    <main id="login-view" class="admin-login">
-        <h1>Admin Login</h1>
-        <form id="login-form" class="contact-form">
-            <input type="text" id="login-username" placeholder="Username" required autocomplete="username">
-            <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password">
-            <button type="submit">Login</button>
-            <p id="login-status" role="status"></p>
+    <!-- ============ Login ============ -->
+    <main id="login-view" class="login" hidden>
+        <form id="login-form" class="login__card">
+            <span class="brand-mark">MM</span>
+            <h1>Admin dashboard</h1>
+            <p class="muted">Sign in to manage your portfolio.</p>
+            <label class="field">
+                <span>Username</span>
+                <input type="text" id="login-username" required autocomplete="username">
+            </label>
+            <label class="field">
+                <span>Password</span>
+                <input type="password" id="login-password" required autocomplete="current-password">
+            </label>
+            <button type="submit" class="btn btn--primary btn--block">Sign in</button>
+            <p id="login-status" class="status" role="status"></p>
         </form>
     </main>
 
-    <div id="dashboard-view" hidden>
-        <header class="admin-bar">
-            <h1>Dashboard</h1>
-            <button id="logout-button" type="button">Logout</button>
-        </header>
+    <!-- ============ Dashboard ============ -->
+    <div id="dashboard-view" class="shell" hidden>
+        <aside class="sidebar">
+            <a class="sidebar__brand" href="/" target="_blank" rel="noopener">
+                <span class="brand-mark">MM</span>
+                <span>Portfolio<small>View site ↗</small></span>
+            </a>
+            <nav class="sidebar__nav" id="sidebar-nav" aria-label="Dashboard sections"></nav>
+            <button id="logout-button" type="button" class="btn btn--ghost btn--block">Log out</button>
+        </aside>
 
-        <main>
-            <section id="stats-admin">
-                <h2>Overview</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-total">–</span>
-                        <span class="stat-label">Total visits</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-today">–</span>
-                        <span class="stat-label">Today</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-week">–</span>
-                        <span class="stat-label">Last 7 days</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-value" id="stat-unread">–</span>
-                        <span class="stat-label">Unread messages</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects-admin">
-                <div class="section-head">
-                    <h2>Projects</h2>
-                    <button id="add-project-button" type="button" class="primary-button">+ Add project</button>
-                </div>
-
-                <form id="project-form" class="contact-form project-form" hidden>
-                    <h3 id="project-form-title">New project</h3>
-                    <input type="text" id="project-name" placeholder="Name" required maxlength="100">
-                    <textarea id="project-description" placeholder="Description" rows="4" required></textarea>
-                    <input type="url" id="project-image" placeholder="Image URL (optional)">
-                    <input type="url" id="project-link" placeholder="Project link (optional)">
-                    <label id="project-active-label" class="checkbox-label" hidden>
-                        <input type="checkbox" id="project-active" checked> Visible on the site
-                    </label>
-                    <div class="form-actions">
-                        <button type="submit">Save</button>
-                        <button type="button" id="project-cancel" class="secondary-button">Cancel</button>
-                    </div>
-                    <p id="project-form-status" role="status"></p>
-                </form>
-
-                <div class="table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="projects-body"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="skills-admin">
-                <div class="section-head">
-                    <h2>Skills</h2>
-                    <button id="add-skill-button" type="button" class="primary-button">+ Add skill</button>
-                </div>
-
-                <form id="skill-form" class="contact-form project-form" hidden>
-                    <h3 id="skill-form-title">New skill</h3>
-                    <input type="text" id="skill-name" placeholder="Name" required maxlength="50">
-                    <input type="text" id="skill-category" placeholder="Category" required maxlength="50" list="skill-categories">
-                    <datalist id="skill-categories">
-                        <option value="Backend"></option>
-                        <option value="Frontend"></option>
-                        <option value="Database"></option>
-                        <option value="Tools"></option>
-                    </datalist>
-                    <label for="skill-level" class="range-label">Level: <span id="skill-level-value">70</span>%</label>
-                    <input type="range" id="skill-level" min="0" max="100" value="70">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="skill-active" checked> Visible on the site
-                    </label>
-                    <div class="form-actions">
-                        <button type="submit">Save</button>
-                        <button type="button" id="skill-cancel" class="secondary-button">Cancel</button>
-                    </div>
-                    <p id="skill-form-status" role="status"></p>
-                </form>
-
-                <div class="table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Level</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="skills-body"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section id="messages-admin">
-                <h2>Messages</h2>
-                <div id="messages-list" class="messages-list"></div>
-            </section>
-        </main>
-
+        <main class="content" id="content" tabindex="-1"></main>
     </div>
 
-    <script src="admin.js"></script>
+    <dialog id="confirm-dialog" class="dialog">
+        <form method="dialog">
+            <h2 id="confirm-title">Are you sure?</h2>
+            <p id="confirm-text" class="muted"></p>
+            <div class="dialog__actions">
+                <button value="cancel" class="btn btn--ghost">Cancel</button>
+                <button value="ok" class="btn btn--danger">Delete</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

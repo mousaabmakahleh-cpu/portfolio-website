@@ -448,42 +448,9 @@
 .tk-f { color: #22d3ee; }
 .tk-c { color: #676e95; font-style: italic; }
 
-/* ---------- Principles ---------- */
-.principles {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 2.5rem;
-}
-
-.principle {
-    display: flex;
-    gap: .9rem;
-    padding: 1.2rem 1.3rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    font-size: var(--fs-sm);
-}
-
-    .principle .icon {
-        width: 22px;
-        height: 22px;
-        margin-top: .1rem;
-        color: var(--c-cyan);
-    }
-
-    .principle strong {
-        display: block;
-        margin-bottom: .15rem;
-        font-size: var(--fs-base);
-    }
-
 @media (max-width: 960px) {
     .about { grid-template-columns: 1fr; }
     .code-window { position: relative; top: 0; }
-    .principles { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {

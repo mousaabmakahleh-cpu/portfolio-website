@@ -8,10 +8,15 @@ import { initTypewriter } from './features/typewriter.js';
 import { observeReveal } from './features/reveal.js';
 import { initSpotlight } from './features/spotlight.js';
 import { initMarquee } from './features/marquee.js';
+import { initLightbox } from './features/lightbox.js';
 import { animateCount } from './features/counter.js';
 import { recordVisit } from './features/visits.js';
-import { renderProjects } from './sections/projects.js';
+import { renderProfile } from './sections/profile.js';
+import { renderEducation } from './sections/education.js';
+import { renderExperience } from './sections/experience.js';
 import { renderSkills } from './sections/skills.js';
+import { renderProjects } from './sections/projects.js';
+import { renderCertifications } from './sections/certifications.js';
 import { initContactForm } from './sections/contact.js';
 
 const ROLES = [
@@ -27,6 +32,7 @@ function initStaticUi() {
     initScrollProgress();
     initMarquee();
     initSpotlight();
+    initLightbox();
     initTypewriter(document.getElementById('typewriter'), ROLES);
     initContactForm();
     observeReveal();
@@ -36,9 +42,18 @@ function initStaticUi() {
 }
 
 async function loadContent() {
-    const [projects, skills] = await Promise.all([renderProjects(), renderSkills()]);
+    const [, , , skills, projects, certifications] = await Promise.all([
+        renderProfile(),
+        renderEducation(),
+        renderExperience(),
+        renderSkills(),
+        renderProjects(),
+        renderCertifications()
+    ]);
+
     animateCount(document.querySelector('[data-counter="projects"]'), projects);
     animateCount(document.querySelector('[data-counter="skills"]'), skills);
+    animateCount(document.querySelector('[data-counter="certifications"]'), certifications);
 }
 
 initStaticUi();
