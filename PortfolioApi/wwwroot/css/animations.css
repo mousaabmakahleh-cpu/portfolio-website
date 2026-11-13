@@ -1,0 +1,94 @@
+/* =========================================================
+   Motion — keyframes, scroll reveal, reduced-motion.
+   ========================================================= */
+
+/* Scroll reveal: .reveal elements fade up once reveal.js marks them visible.
+   Only hidden when JS is running (html.js), so content is never lost without it. */
+/* Uses `translate` (not `transform`) so hover transforms on cards stay independent. */
+.js .reveal {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+        opacity var(--dur-slow) var(--ease-out),
+        translate var(--dur-slow) var(--ease-out),
+        transform var(--dur) var(--ease-out),
+        border-color var(--dur),
+        box-shadow var(--dur);
+    transition-delay: calc(var(--reveal-delay, 0) * 90ms);
+}
+
+    .js .reveal.is-visible {
+        opacity: 1;
+        translate: none;
+    }
+
+    /* After the entrance finishes, hover effects should respond instantly */
+    .js .reveal.reveal-done {
+        transition-delay: 0s;
+    }
+
+@keyframes gradient-pan {
+    to { background-position: 200% center; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes ping {
+    75%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes blink {
+    to { visibility: hidden; }
+}
+
+@keyframes wheel {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(12px); opacity: 0; }
+}
+
+@keyframes marquee {
+    to { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+    to { background-position: -300% 0; }
+}
+
+@keyframes drift-1 {
+    to { transform: translate(140px, 120px) scale(1.15); }
+}
+
+@keyframes drift-2 {
+    to { transform: translate(-160px, 140px) scale(.9); }
+}
+
+@keyframes drift-3 {
+    to { transform: translate(-120px, -160px) scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        transition-delay: 0s !important;
+    }
+
+    .js .reveal {
+        opacity: 1;
+        translate: none;
+    }
+}
