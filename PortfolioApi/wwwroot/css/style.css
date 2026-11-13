@@ -1,0 +1,254 @@
+﻿/*
+    CSS Variables for Dark Theme
+*/
+:root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.hero {
+    text-align: center;
+    padding: 5rem 1rem 4rem;
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+}
+
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+    }
+
+    .hero p {
+        color: var(--muted);
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    border-inline-start: 4px solid var(--accent);
+    padding-inline-start: 0.75rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .card h3 {
+        color: var(--accent);
+    }
+
+    .card p {
+        flex-grow: 1;
+    }
+
+    .card small {
+        color: var(--muted);
+    }
+
+    .card a {
+        align-self: flex-start;
+        color: var(--accent);
+        text-decoration: none;
+        border: 1px solid var(--accent);
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        transition: background 0.2s, color 0.2s;
+    }
+
+        .card a:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        /*
+            Skills Section 
+        */
+
+section + section {
+    margin-top: 3rem;
+}
+
+.skill-group {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+    .skill-group h3 {
+        color: var(--accent);
+        margin-bottom: 1rem;
+    }
+
+.skill {
+    margin-bottom: 1rem;
+}
+
+.skill-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+}
+/*
+    img mousaab 
+*/
+.avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/*
+    Message Section
+*/
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+}
+
+    .contact-form input,
+    .contact-form textarea {
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 0.8rem 1rem;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+    .contact-form textarea {
+        resize: vertical;
+    }
+
+    .contact-form button {
+        align-self: flex-start;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        border-radius: 999px;
+        padding: 0.7rem 2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+
+        .contact-form button:hover {
+            opacity: 0.85;
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+#form-status {
+    color: var(--muted);
+}
+/*
+    Light Theme
+*/
+:root[data-theme="light"] {
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --accent: #0284c7;
+}
+
+.hero {
+    position: relative;
+}
+
+    .hero h1 {
+        color: #f8fafc;
+    }
+
+    .hero p {
+        color: #cbd5e1;
+    }
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    inset-inline-end: 1rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
