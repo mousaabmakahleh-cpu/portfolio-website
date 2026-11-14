@@ -8,20 +8,22 @@
     <meta name="theme-color" content="#07070d">
 
     <!-- Link preview when the site is shared (LinkedIn, WhatsApp, X, Slack…).
-         Once deployed, change og:image / twitter:image to the full URL
-         (https://<your-domain>/images/og-image.png) — LinkedIn ignores relative image paths. -->
+         Image and page URLs must be absolute (LinkedIn ignores relative paths):
+         update them if the site moves to a custom domain. -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://portfolio-website-ujzs.onrender.com/">
+    <link rel="canonical" href="https://portfolio-website-ujzs.onrender.com/">
     <meta property="og:site_name" content="Mousaab Makahleh">
     <meta property="og:title" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
     <meta property="og:description" content="Secure REST APIs with C#, ASP.NET Core, EF Core and PostgreSQL — plus clean, responsive front ends. Projects, skills, certificates and CV.">
-    <meta property="og:image" content="/images/og-image.png">
+    <meta property="og:image" content="https://portfolio-website-ujzs.onrender.com/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
     <meta name="twitter:description" content="Secure REST APIs with C#, ASP.NET Core, EF Core and PostgreSQL — plus clean, responsive front ends.">
-    <meta name="twitter:image" content="/images/og-image.png">
+    <meta name="twitter:image" content="https://portfolio-website-ujzs.onrender.com/images/og-image.png">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
     <!-- Applies the saved theme before first paint (external file: CSP forbids inline scripts) -->
