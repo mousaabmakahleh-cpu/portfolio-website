@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.RateLimiting;
 using PortfolioApi.Middleware;
 using PortfolioApi.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,19 @@ builder.Services.AddRateLimiter(options =>
             }));
 });
 
+// Hosted behind a reverse proxy (Render): trust X-Forwarded-For / -Proto so the app sees
+// the real client IP (rate limiting is per IP) and knows the original request was HTTPS.
+// The proxy's address isn't fixed, so the known-proxy lists are cleared; the container is
+// only reachable through that proxy.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
 var app = builder.Build();
+app.UseForwardedHeaders();
 app.UseExceptionHandler();
 
 app.Use(async (context, next) =>
@@ -84,6 +97,10 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    // Create / update the schema on startup, so a fresh database (e.g. Neon) works on first deploy.
+    // Already-applied migrations are skipped, so this is a no-op on an up-to-date database.
+    await db.Database.MigrateAsync();
 
     if (!await db.User.AnyAsync())
     {
