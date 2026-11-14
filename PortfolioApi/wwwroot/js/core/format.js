@@ -24,6 +24,15 @@ export function dateRange(start, end, { present = 'Present' } = {}) {
     return to ?? '';
 }
 
+/** "2022 – 2026", or "2022 – Present" when there is no end date. */
+export function yearRange(start, end, { present = 'Present' } = {}) {
+    const from = parseDate(start)?.getFullYear();
+    const to = parseDate(end)?.getFullYear();
+    if (from && to) return from === to ? String(from) : `${from} – ${to}`;
+    if (from) return `${from} – ${present}`;
+    return to ? String(to) : '';
+}
+
 /** Human duration between two dates, e.g. "1 yr 3 mos". End defaults to today. */
 export function duration(start, end) {
     const from = parseDate(start);

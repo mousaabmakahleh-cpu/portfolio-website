@@ -31,9 +31,19 @@ function toChannels(profile) {
 function applyCv(cvUrl) {
     const url = safeUrl(cvUrl);
     document.getElementById('cv-banner')?.toggleAttribute('hidden', !url);
-    document.querySelectorAll('[data-cv-link], [data-cv-view]').forEach(link => {
+    document.querySelectorAll('[data-cv-link]').forEach(link => {
         link.hidden = !url;
         if (url) link.href = url;
+    });
+
+    // Preview opens the PDF in the browser instead of downloading it
+    document.querySelectorAll('[data-cv-view]').forEach(link => {
+        link.hidden = !url;
+        if (url) {
+            const preview = new URL(url);
+            preview.searchParams.set('inline', 'true');
+            link.href = preview.href;
+        }
     });
 }
 

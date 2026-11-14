@@ -53,7 +53,7 @@ namespace PortfolioApi.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Guid id, [FromQuery] bool inline = false)
         {
             var file = await _context.StoredFile.AsNoTracking().FirstOrDefaultAsync(f => f.Id == id);
             if (file is null) return NotFound();
@@ -61,8 +61,8 @@ namespace PortfolioApi.Controllers
             // Files never change once uploaded (a new upload gets a new id), so they can be cached forever.
             Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000, immutable";
 
-            // Images display inline; PDFs (the CV) download with their original name.
-            return file.ContentType == "application/pdf"
+            // Images display inline; PDFs (the CV) download with their original name unless ?inline=true (preview).
+            return file.ContentType == "application/pdf" && !inline
                 ? File(file.Data, file.ContentType, file.FileName)
                 : File(file.Data, file.ContentType);
         }

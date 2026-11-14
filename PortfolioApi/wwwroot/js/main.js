@@ -19,11 +19,12 @@ import { renderProjects } from './sections/projects.js';
 import { renderCertifications } from './sections/certifications.js';
 import { initContactForm } from './sections/contact.js';
 
+// The first entry must match the text already in #typewriter (index.html)
 const ROLES = [
-    'Full-Stack Software Engineer',
-    'C# & .NET Backend Developer',
-    'Frontend & UI Engineer',
-    'PostgreSQL Data Modeler'
+    'Backend & Full-Stack Developer',
+    'C# & ASP.NET Core Engineer',
+    'REST API Developer',
+    'PostgreSQL & EF Core Developer'
 ];
 
 function initStaticUi() {

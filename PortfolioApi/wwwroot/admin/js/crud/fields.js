@@ -31,7 +31,7 @@ function baseAttrs(def, id) {
 }
 
 function inputField(def, id) {
-    const type = def.type === 'url' ? 'text' : def.type; // relative "/api/files/..." paths are valid too
+    const type = !def.type || def.type === 'url' ? 'text' : def.type; // relative "/api/files/..." paths are valid too
     const attrs = { ...baseAttrs(def, id), type };
     if (def.min != null) attrs.min = String(def.min);
     if (def.max != null) attrs.max = String(def.max);

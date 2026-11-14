@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mousaab Makahleh — Full-Stack Software Engineer</title>
-    <meta name="description" content="Mousaab Makahleh — full-stack software engineer building fast, accessible interfaces and robust .NET / PostgreSQL back ends.">
+    <title>Mousaab Makahleh — Backend &amp; Full-Stack Developer</title>
+    <meta name="description" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer building secure REST APIs with C#, ASP.NET Core, EF Core and PostgreSQL.">
     <meta name="theme-color" content="#07070d">
+
+    <!-- Link preview when the site is shared (LinkedIn, WhatsApp, X, Slack…).
+         Once deployed, change og:image / twitter:image to the full URL
+         (https://<your-domain>/images/og-image.png) — LinkedIn ignores relative image paths. -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Mousaab Makahleh">
+    <meta property="og:title" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
+    <meta property="og:description" content="Secure REST APIs with C#, ASP.NET Core, EF Core and PostgreSQL — plus clean, responsive front ends. Projects, skills, certificates and CV.">
+    <meta property="og:image" content="/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mousaab Makahleh — Backend &amp; Full-Stack Developer">
+    <meta name="twitter:description" content="Secure REST APIs with C#, ASP.NET Core, EF Core and PostgreSQL — plus clean, responsive front ends.">
+    <meta name="twitter:image" content="/images/og-image.png">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
     <!-- Applies the saved theme before first paint (external file: CSP forbids inline scripts) -->
@@ -107,7 +123,7 @@
                 <div class="hero__content">
                     <p class="pill reveal">
                         <span class="pill__dot"></span>
-                        Available for new opportunities
+                        Open to Backend Engineering roles
                     </p>
 
                     <h1 class="hero__title reveal" data-reveal-delay="1">
@@ -116,13 +132,13 @@
 
                     <p class="hero__role reveal" data-reveal-delay="2">
                         <span class="hero__role-prefix">&gt;</span>
-                        <span id="typewriter" class="hero__typed" aria-live="off">Full-Stack Software Engineer</span><span class="caret" aria-hidden="true"></span>
+                        <span id="typewriter" class="hero__typed" aria-live="off">Backend &amp; Full-Stack Developer</span><span class="caret" aria-hidden="true"></span>
                     </p>
 
                     <p class="hero__lead reveal" data-reveal-delay="3">
-                        I design and build complete web products — from pixel-perfect, accessible
-                        interfaces in <strong>HTML, CSS &amp; JavaScript</strong> to secure, scalable
-                        APIs in <strong>C# / .NET</strong> backed by <strong>PostgreSQL</strong>.
+                        I build secure, scalable REST APIs with <strong>C# / ASP.NET Core</strong>,
+                        <strong>EF Core</strong> and <strong>PostgreSQL</strong> — and the clean, responsive
+                        interfaces in <strong>HTML, CSS &amp; JavaScript</strong> that sit on top of them.
                     </p>
 
                     <div class="hero__ctas reveal" data-reveal-delay="4">
@@ -233,7 +249,7 @@
 <pre class="code-window__body"><code><span class="tk-k">public sealed record</span> <span class="tk-t">Developer</span>
 {
     <span class="tk-k">public string</span> Name    { <span class="tk-k">get</span>; } = <span class="tk-s">"Mousaab Makahleh"</span>;
-    <span class="tk-k">public string</span> Role    { <span class="tk-k">get</span>; } = <span class="tk-s">"Full-Stack Engineer"</span>;
+    <span class="tk-k">public string</span> Role    { <span class="tk-k">get</span>; } = <span class="tk-s">"Backend &amp; Full-Stack"</span>;
 
     <span class="tk-k">public string</span>[] Frontend =&gt;
         [<span class="tk-s">"HTML"</span>, <span class="tk-s">"CSS"</span>, <span class="tk-s">"JavaScript"</span>];

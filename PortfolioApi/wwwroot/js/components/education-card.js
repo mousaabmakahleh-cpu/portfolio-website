@@ -1,5 +1,5 @@
 import { el, icon } from '../core/dom.js';
-import { dateRange, parseGpa } from '../core/format.js';
+import { yearRange, parseGpa } from '../core/format.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const RADIUS = 42;
@@ -57,7 +57,8 @@ function renderGpa(text) {
  */
 export function createEducationCard(item, index) {
     const title = item.fieldOfStudy ? `${item.degree} in ${item.fieldOfStudy}` : item.degree;
-    const dates = dateRange(item.startDate, item.endDate, { present: 'Expected' });
+    // Degrees read naturally as academic years ("2022 – 2026")
+    const dates = yearRange(item.startDate, item.endDate, { present: 'Present' });
 
     const meta = el('div', { class: 'edu__meta' }, [
         dates ? el('span', {}, [icon('calendar'), dates]) : null,

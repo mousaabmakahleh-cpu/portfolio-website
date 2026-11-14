@@ -16,7 +16,8 @@ const TYPE_ICONS = {
  */
 export function createExperienceItem(item) {
     const isCurrent = !item.endDate;
-    const length = duration(item.startDate, item.endDate);
+    const isSingleDay = item.endDate === item.startDate; // e.g. a one-day workshop
+    const length = isSingleDay ? '' : duration(item.startDate, item.endDate);
 
     return el('li', { class: 'timeline__item reveal' }, [
         el('span', { class: `timeline__dot${isCurrent ? ' timeline__dot--live' : ''}` }, [icon(TYPE_ICONS[item.type] ?? 'briefcase')]),
